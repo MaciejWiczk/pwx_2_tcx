@@ -1,9 +1,11 @@
 from pwx_importer import *
 from tcx_creator import *
 import os, sys
-from idlelib.replace import replace
+
 input_path=r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
 output_path=r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\tcx'
+
+
 
 def get_new_files(pwx_path, tcx_path):
     pwx_files = get_file_list(pwx_path, '.pwx')
