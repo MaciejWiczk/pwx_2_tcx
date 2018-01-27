@@ -48,7 +48,16 @@ def get_dist(pwx):
     return pwx.find('workout').find('summarydata').find('dist').text
 
 def get_avg_heart_rate(list):
-    return str(int(sum(int(hr['hr']) for hr in list) / len(list)))
+    sum = 0
+    for d in list:
+        if 'hr' in d:
+            sum += int(d['hr'])
+    return str(int(sum)/len(list))
 
 def get_max_heart_rate(list):
-    return str(max(int(hr['hr']) for hr in list))
+    max = 0
+    for d in list:
+        if 'hr' in d:
+            if max < int(d['hr']):
+                max = int(d['hr'])
+    return str(max)

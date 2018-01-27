@@ -1,6 +1,7 @@
 from pwx_importer import *
 from tcx_creator import *
 from xml.etree import ElementTree as et
+from xml.dom import minidom
 import os, sys
 import datetime
 
@@ -21,8 +22,9 @@ def export_tcx_file(pwx_path, tcx_path):
             max_hr = get_max_heart_rate(workout_data)
             
             tcx = generate_tcx_content(file, activity_type, start_time, total_time, total_dist, avg_hr, max_hr, workout_data)
+            tcx = minidom.parseString(et.tostring(tcx)).toprettyxml(indent="   ")
             with open(os.path.join(tcx_path, file + '.tcx'), "wb") as f:
-                f.write(et.tostring(tcx))
+                f.write(tcx.encode('utf-8'))
                 f.close()
             print("File {0} exported at {1}".format(file, datetime.datetime.now()))
     else:
