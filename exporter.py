@@ -1,5 +1,5 @@
-from import_pwx import *
-from export_tcx import *
+from pwx_importer import *
+from tcx_creator import *
 import os, sys
 from idlelib.replace import replace
 input_path=r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
@@ -37,10 +37,10 @@ e = get_duration(a)
 f = get_dist(a)
 g = get_avg_heart_rate(c)
 h = get_max_heart_rate(c)
-i = get_activity_start_time(c)
-print(d,e,f,g,h,i, datetime.datetime.now()- start_time_a)
-print(i)
-print(populate_tcx_header(d))
-
-z = get_new_files(input_path, output_path)
-print(z)
+print(c)
+# print(d,e,f,g,h,i, datetime.datetime.now()- start_time_a)
+# print(populate_tcx_header(d))
+# 
+# z = get_new_files(input_path, output_path)
+# print(z)
+# print(b,i)
