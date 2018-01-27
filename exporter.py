@@ -1,7 +1,6 @@
 from pwx_importer import *
 from tcx_creator import *
-from xml.etree import ElementTree as et
-from xml.dom import minidom
+# from xml.etree import ElementTree as et
 import os, sys
 import datetime
 
@@ -11,7 +10,10 @@ output_path=r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\tcx'
 def export_tcx_file(pwx_path, tcx_path):
     files = get_new_files(pwx_path, tcx_path)
     if files.__len__():
-        for file in files:
+        begin_time = datetime.datetime.now()
+        total = files.__len__()
+        i = 0
+        for file in files:            
             pwx = open_pwx_and_fix_tags(os.path.join(pwx_path, file + '.pwx'))
             start_time = str(get_start_time(pwx))
             workout_data = get_workout_data(pwx)
@@ -20,13 +22,15 @@ def export_tcx_file(pwx_path, tcx_path):
             total_dist = get_dist(pwx)
             avg_hr = get_avg_heart_rate(workout_data)
             max_hr = get_max_heart_rate(workout_data)
-            
-            tcx = generate_tcx_content(file, activity_type, start_time, total_time, total_dist, avg_hr, max_hr, workout_data)
-            tcx = minidom.parseString(et.tostring(tcx)).toprettyxml(indent="   ")
-            with open(os.path.join(tcx_path, file + '.tcx'), "wb") as f:
-                f.write(tcx.encode('utf-8'))
-                f.close()
-            print("File {0} exported at {1}".format(file, datetime.datetime.now()))
+            try:
+                tcx = generate_tcx_content(file, activity_type, start_time, total_time, total_dist, avg_hr, max_hr, workout_data)
+                with open(os.path.join(tcx_path, file + '.tcx'), "wb") as f:
+                    f.write(tostring(tcx))
+                    f.close()
+                i += 1
+                progress(i, total, "File {0} exported at {1}".format(file, datetime.datetime.now().strftime('%H:%M:%S')))
+            except:
+                print("Conversion for file {0} Failed!".format(file))
     else:
         print("No new Files found.")
         
@@ -45,4 +49,14 @@ def get_file_list(path, extension):
             file_list.append(item_no_extension)
     return file_list
     
+def progress(count, total, suffix=''):
+    bar_len = 60
+    filled_len = int(round(bar_len * count / float(total)))
+
+    percents = round(100.0 * count / float(total), 1)
+    bar = '=' * filled_len + '-' * (bar_len - filled_len)
+
+    sys.stdout.write('[%s] %s%s ... %s\r' % (bar, percents, '%', suffix))
+    sys.stdout.flush()  # As suggested by Rom Ruben
+
 export_tcx_file(input_path, output_path)

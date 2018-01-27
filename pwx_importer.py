@@ -45,7 +45,12 @@ def get_duration(pwx):
     return pwx.find('workout').find('summarydata').find('duration').text
 
 def get_dist(pwx):
-    return pwx.find('workout').find('summarydata').find('dist').text
+    try:
+        dist =  pwx.find('workout').find('summarydata').find('dist').text
+    except Exception:
+        dist = 0
+    return dist
+    
 
 def get_avg_heart_rate(list):
     sum = 0

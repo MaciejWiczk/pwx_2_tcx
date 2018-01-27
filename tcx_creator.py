@@ -9,6 +9,7 @@ def generate_tcx_content(file, activity_type, start_time, total_time, total_dist
     populate_tcx_start_time(tcx, start_time)
     populate_tcx_summary(tcx, total_time, total_dist, avg_hr, max_hr)
     populate_tcx_track(tcx, data_list)
+    indent(tcx,1)
     return tcx
     
 def begin_tcx():
@@ -61,3 +62,18 @@ def SubElementWithSubValue(parent, tag, text):
     element.append(sub)
     sub.text = text
     return sub
+
+def indent(elem, level=0):
+    i = "\n" + level*"  "
+    if len(elem):
+        if not elem.text or not elem.text.strip():
+            elem.text = i + "  "
+        for e in elem:
+            indent(e, level+1)
+            if not e.tail or not e.tail.strip():
+                e.tail = i + "  "
+        if not e.tail or not e.tail.strip():
+            e.tail = i
+    else:
+        if level and (not elem.tail or not elem.tail.strip()):
+            elem.tail = i
