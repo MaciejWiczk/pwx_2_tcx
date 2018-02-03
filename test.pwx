@@ -1,28 +1,28 @@
-<?xmlversion="1.0"encoding="UTF-8"?>				
-<pwxxmlns="http://www.peaksware.com/PWX/1/0"xmlns: xsi="http://www.w3.org/2001/XMLSchema-instance"xsi: schemaLocation="http://www.peaksware.com/PWX/1/0 http://www.peaksware.com/PWX/1/0/pwx.xsd"version="1.0"creator="winDeviceAgent/3.0.92.12">				
-	<workout>			
-		<fingerprint>f15504bc16df7b62a4cb703df922f34235d8e17035d80a829250f73d48855017</fingerprint>		
-		<athlete>		
-			<name>Mezazel</name>	
-			<weight>82.0</weight>	
-		</athlete>		
-		<sportType>Bike</sportType>		
-		<cmt>TimexCycleTrainer</cmt>		
-		<deviceid="USER NAME">		
-			<make>Timex</make>	
-			<model>CycleTrainer</model>	
-			<stopdetectionsetting>5.000</stopdetectionsetting>	
-		</device>		
-		<time>2009-02-15T01: 00: 41</time>		
-		<summarydata>		
-			<beginning>0.000</beginning>	
-			<duration>11815.200</duration>	
-			<durationstopped>0.000</durationstopped>	
-			<dist>78624.00</dist>	
-		</summarydata>		
-		<segment>		
-			<name>Lap1</name>	
-			<summarydata>	
+<?xml version="1.0" encoding="UTF-8"?>
+<pwx xmlns="http://www.peaksware.com/PWX/1/0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.peaksware.com/PWX/1/0 http://www.peaksware.com/PWX/1/0/pwx.xsd" version="1.0" creator="winDeviceAgent/3.0.93.14">
+	<workout>
+		<fingerprint>f15504bc16df7b62a4cb703df922f34235d8e17035d80a829250f73d48855017</fingerprint>
+		<athlete>
+			<name>Mezazel</name>
+			<weight>82.0</weight>
+		</athlete>
+		<sportType>Bike</sportType>
+		<cmt>TimexCycleTrainer</cmt>
+		<device id="USER NAME">
+			<make>Timex</make>
+			<model>CycleTrainer</model>
+			<stopdetectionsetting>5.000</stopdetectionsetting>
+		</device>
+		<time>2009-02-15T01:00:41</time>
+		<summarydata>
+			<beginning>0.000</beginning>
+			<duration>11815.200</duration>
+			<durationstopped>0.000</durationstopped>
+			<dist>78624.00</dist>
+		</summarydata>
+		<segment>
+			<name>Lap1</name>
+			<summarydata>
 				<beginning>0.000</beginning>
 				<duration>11815.200</duration>
 				<durationstopped>0.000</durationstopped>
@@ -69902,13 +69902,13 @@
 				<spdstatus>0</spdstatus>
 				<pmstatus>0</pmstatus>
 				<cadstatus>0</cadstatus>
-			</extension>	
-		</sample>		
-		<extension>		
-			<laps>1</laps>	
-			<ascent>409</ascent>	
-			<descent>439</descent>	
-			<points>5013</points>	
-		</extension>		
-	</workout>			
-</pwx>				
+			</extension>
+		</sample>
+		<extension>
+			<laps>1</laps>
+			<ascent>409</ascent>
+			<descent>439</descent>
+			<points>5013</points>
+		</extension>
+	</workout>
+</pwx>
