@@ -6,6 +6,7 @@ import dateutil.parser
 
 def open_pwx_and_fix_tags(file_path):
     root = et.parse(file_path).getroot()
+
     def fix_tag_name(input_tag):
         return str.replace(input_tag,'{http://www.peaksware.com/PWX/1/0}', '')
     for child in root.getiterator():
