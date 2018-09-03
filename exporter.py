@@ -1,6 +1,7 @@
 from pwx_importer import *
 from tcx_creator import *
 from progress.bar import IncrementalBar
+from concurrent.futures import ThreadPoolExecutor as Executor
 import os
 
 input_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
@@ -8,7 +9,7 @@ output_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\tcx'
 
 
 def export_tcx_file(pwx_path, tcx_path):
-    def convert_pwx_2_tcx():
+    def convert_pwx_2_tcx(file):
         pwx = open_pwx_and_fix_tags(os.path.join(pwx_path, file + '.pwx'))
         start_time = str(get_start_time(pwx))
         workout_data = get_workout_data(pwx)
@@ -22,13 +23,13 @@ def export_tcx_file(pwx_path, tcx_path):
         with open(os.path.join(tcx_path, file + '.tcx'), "wb") as f:
             f.write(tostring(tcx))
             f.close()
+        progress_bar.next()
 
     files = get_new_files(pwx_path, tcx_path)
     if files.__len__():
         progress_bar = IncrementalBar('Processing', max=files.__len__(), suffix='%(percent).1f%% - %(eta)ds')
-        for file in files:
-            convert_pwx_2_tcx()
-            progress_bar.next()
+        with Executor(max_workers=None) as exe:
+            jobs = [exe.submit(convert_pwx_2_tcx(file)) for file in files]
     else:
         print("No new Files found.")        
 
@@ -36,12 +37,11 @@ def export_tcx_file(pwx_path, tcx_path):
 def get_new_files(pwx_path, tcx_path):
     pwx_files = get_file_list(pwx_path, '.pwx')
     tcx_files = get_file_list(tcx_path, '.tcx')
-    new_file = [file for file in pwx_files if file not in tcx_files]
-    return new_file
+    return pwx_files - tcx_files
 
 
 def get_file_list(path, extension):
-    return [str.replace(file, extension, '') for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
+    return {str.replace(file, extension, '') for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))}
 
 
 export_tcx_file(input_path, output_path)
