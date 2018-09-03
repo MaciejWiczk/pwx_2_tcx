@@ -37,12 +37,7 @@ def get_new_files(pwx_path, tcx_path):
 
 
 def get_file_list(path, extension):
-    file_list = []
-    for files in os.listdir(path):
-        if os.path.isfile(os.path.join(path, files)):
-            item_no_extension = str.replace(files, extension,'')
-            file_list.append(item_no_extension)
-    return file_list
+    return [str.replace(file, extension, '') for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))]
 
 
 export_tcx_file(input_path, output_path)
