@@ -1,7 +1,7 @@
 from pwx_importer import *
 from tcx_creator import *
 from progress.bar import IncrementalBar
-from concurrent.futures import ThreadPoolExecutor as Executor
+from concurrent.futures import ProcessPoolExecutor as Executor
 import os
 
 input_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
@@ -44,4 +44,5 @@ def get_file_list(path, extension):
     return {str.replace(file, extension, '') for file in os.listdir(path) if os.path.isfile(os.path.join(path, file))}
 
 
-export_tcx_file(input_path, output_path)
+if __name__ == '__main__':
+    export_tcx_file(input_path, output_path)
