@@ -27,7 +27,7 @@ def export_tcx_file(pwx_path, tcx_path):
     if files.__len__():
         progress_bar = IncrementalBar('Processing', max=files.__len__(), suffix='%(percent).1f%% - %(eta)ds')
         for file in files:
-            convert_pwx_2_tcx(tcx_path, pwx_path, file)
+            convert_pwx_2_tcx()
             progress_bar.next()
     else:
         print("No new Files found.")        
