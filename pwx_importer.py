@@ -2,13 +2,14 @@ from xml.etree import ElementTree as et
 from ast import literal_eval
 import datetime
 import dateutil.parser
+from statistics import mean
 
 
 def open_pwx_and_fix_tags(file_path):
     root = et.parse(file_path).getroot()
 
     def fix_tag_name(input_tag):
-        return str.replace(input_tag,'{http://www.peaksware.com/PWX/1/0}', '')
+        return str.replace(input_tag, '{http://www.peaksware.com/PWX/1/0}', '')
     for child in root.getiterator():
         child.tag = fix_tag_name(child.tag)        
     return root
@@ -22,10 +23,10 @@ def get_workout_data(pwx):
     def increment_dates(input_date, seconds_incrementor):
         return (input_date + datetime.timedelta(seconds=seconds_incrementor)).isoformat()
     start_time = get_start_time(pwx)
-    sample_params_list =[]
-    sample_params_dict={}
+    sample_params_list = []
+    sample_params_dict = {}
     for sample in pwx.find('workout').findall('sample'):        
-        if sample_params_dict.__len__():
+        if sample_params_dict:
             sample_params_list.append(sample_params_dict.copy())
             sample_params_dict.clear()
         for child in sample:     
@@ -38,7 +39,7 @@ def get_workout_data(pwx):
 
 def get_activity_type(pwx):
     activity_type = pwx.find('workout').find('sportType').text
-    if activity_type in ["Bike", "Mountain Bike"]:
+    if activity_type in ("Bike", "Mountain Bike"):
         activity_type = "Biking"
     elif activity_type == "Run":
         activity_type = "Running"
@@ -59,18 +60,11 @@ def get_dist(pwx):
     return dist    
 
 
-def get_avg_heart_rate(list):
-    sum = 0
-    for d in list:
-        if 'hr' in d:
-            sum += int(d['hr'])
-    return str(int(sum)/len(list))
+def get_avg_heart_rate(hr_list):
+    avg_hr = mean([int(d['hr']) for d in hr_list if 'hr' in d])
+    return str(avg_hr)
 
 
-def get_max_heart_rate(list):
-    max = 0
-    for d in list:
-        if 'hr' in d:
-            if max < int(d['hr']):
-                max = int(d['hr'])
-    return str(max)
+def get_max_heart_rate(hr_list):
+    max_hr = max([int(d['hr']) for d in hr_list if 'hr' in d])
+    return str(max_hr)
