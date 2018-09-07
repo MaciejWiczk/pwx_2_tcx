@@ -1,7 +1,4 @@
-from xml.etree.ElementTree import Element, SubElement, Comment, tostring
-from ast import literal_eval
-from pprint import pprint
-import abc
+from xml.etree.ElementTree import Element, SubElement
 
 
 def generate_tcx_content(file, activity_type, start_time, total_time, total_dist, avg_hr, max_hr, data_list):
@@ -15,17 +12,17 @@ def generate_tcx_content(file, activity_type, start_time, total_time, total_dist
 
 
 def begin_tcx():
-    tcx = Element('TrainingCenterDatabase', attrib = {'xmlns': 'http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2'})
+    tcx = Element('TrainingCenterDatabase', attrib={'xmlns': 'http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2'})
     return tcx
 
 
 def populate_tcx_header(tcx, activity_type):    
     activities = SubElement(tcx, 'Activities')
-    activity = SubElement(activities, 'Activity', attrib = {'Sport':activity_type})
+    activity = SubElement(activities, 'Activity', attrib={'Sport': activity_type})
 
 
 def populate_tcx_start_time(tcx, start_time):
-    SubElement(tcx.find('Activities').find('Activity'), 'Lap', attrib = {'StartTime': start_time})
+    SubElement(tcx.find('Activities').find('Activity'), 'Lap', attrib={'StartTime': start_time})
     SubElementWithText(tcx.find('Activities').find('Activity'), 'Id', start_time)
 
 
@@ -33,7 +30,7 @@ def populate_tcx_summary(tcx, total_time, total_dist, avg_hr, max_hr):
     lap = tcx.find('Activities').find('Activity').find('Lap')
     tot = SubElementWithText(lap, 'TotalTimeSeconds', total_time)
     dist = SubElementWithText(lap, 'DistanceMeters', total_dist)  
-    cal = SubElementWithText(lap, 'Calories', text = '0')
+    cal = SubElementWithText(lap, 'Calories', text='0')
     avg = SubElementWithSubValue(lap, 'AverageHeartRateBpm', avg_hr)
     max = SubElementWithSubValue(lap, 'MaximumHeartRateBpm', max_hr)
     intensity = SubElementWithText(lap, 'Intensity', 'Active')

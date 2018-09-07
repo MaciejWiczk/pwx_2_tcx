@@ -5,6 +5,7 @@ import concurrent.futures
 import os
 from pathlib import Path
 
+
 input_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
 output_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\tcx'
 
