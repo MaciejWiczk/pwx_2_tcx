@@ -4,10 +4,7 @@ from progress.bar import IncrementalBar
 import concurrent.futures
 import os
 from pathlib import Path
-
-
-input_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\pwx'
-output_path = r'C:\Users\Maciek\PycharmProjects\PWX_2_TCX_Parser\tcx'
+import argparse
 
 
 def convert_pwx_2_tcx(pwx_path, tcx_path, file):
@@ -51,4 +48,12 @@ def main():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(
+        description='Processing .pwx into .tcx files. Please provide input and output paths.')
+    parser.add_argument('-i' ,'--input-path')
+    parser.add_argument('-o', '--output-path')
+    args = parser.parse_args()
+    input_path = args.input_path
+    output_path = args.output_path
     main()
+
