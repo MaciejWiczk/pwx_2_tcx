@@ -3,7 +3,6 @@ from tcx_creator import *
 from progress.bar import IncrementalBar
 import concurrent.futures
 import os
-import sys
 from pathlib import Path
 import argparse
 
