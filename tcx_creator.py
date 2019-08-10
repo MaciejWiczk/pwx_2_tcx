@@ -12,6 +12,7 @@ def generate_tcx_content(file, activity_type, start_time, total_time, total_dist
 
 
 def begin_tcx():
+
     tcx = Element('TrainingCenterDatabase', attrib={'xmlns': 'http://www.garmin.com/xmlschemas/TrainingCenterDatabase/v2'})
     return tcx
 

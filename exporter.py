@@ -6,11 +6,13 @@ import os
 from pathlib import Path
 from xml.etree.ElementTree import tostring
 import argparse
+from dateutil.parser import parse
 
 
 def convert_pwx_2_tcx(pwx_path, tcx_path, file):
     pwx = open_pwx_and_fix_tags(os.path.join(pwx_path, file + '.pwx'))
     start_time = str(get_start_time(pwx))
+    start_time = parse(start_time).isoformat()
     workout_data = get_workout_data(pwx)
     activity_type = get_activity_type(pwx)
     total_time = get_duration(pwx)
@@ -21,6 +23,7 @@ def convert_pwx_2_tcx(pwx_path, tcx_path, file):
                                workout_data)
     p = Path(tcx_path)
     with open(str(p / f'{file}.tcx'), "wb") as f:
+        f.write(b'<?xml version="1.0"?>\n')
         f.write(tostring(tcx))
         f.close()
 
@@ -51,7 +54,7 @@ def main():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(
         description='Processing .pwx into .tcx files. Please provide input and output paths.')
-    parser.add_argument('-i','--input-path')
+    parser.add_argument('-i', '--input-path')
     parser.add_argument('-o', '--output-path')
     args = parser.parse_args()
     input_path = args.input_path

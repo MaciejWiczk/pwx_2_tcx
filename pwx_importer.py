@@ -16,7 +16,7 @@ def open_pwx_and_fix_tags(file_path):
 
 
 def get_start_time(pwx):
-    return dateutil.parser.parse(pwx.find('workout').find('time').text)    
+    return dateutil.parser.parse(pwx.find('workout').find('time').text)
 
 
 def get_workout_data(pwx):    
@@ -62,9 +62,9 @@ def get_dist(pwx):
 
 def get_avg_heart_rate(hr_list):
     avg_hr = mean([int(d['hr']) for d in hr_list if 'hr' in d])
-    return str(avg_hr)
+    return str(int(avg_hr))
 
 
 def get_max_heart_rate(hr_list):
     max_hr = max([int(d['hr']) for d in hr_list if 'hr' in d])
-    return str(max_hr)
+    return str(int(max_hr))
